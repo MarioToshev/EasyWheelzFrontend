@@ -18,13 +18,21 @@ const api = axios.create({
 });
 
 const Register = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [licenceNumer, setLicenceNumer] = useState('');
   const [passwordErrMsg, setPasswordErrMsg] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
 
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
@@ -47,10 +55,27 @@ const Register = () => {
   const handlePhoneNumberChange = (event) => { 
     setPhoneNumber(event.target.value);
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // TODO: handle registration logic here
+    const data = {
+      firstName: firstName,
+      lastName:lastName ,
+      email: email,
+      phone: phoneNumber,
+      driverLicense: licenceNumer,
+      role: {
+        id: 1,
+        roleName: "Customer"
+      }
+    };
+    try {
+      const response = await axios.post('http://localhost:8080/users', data);
+      console.log(response.data); // Handle successful response
+    } catch (error) {
+      console.error(error); // Handle error
+    }
   };
+  
 
   return (
     <Container component="main" maxWidth="xs" sx={{mx: 'auto',pt:'150px'}}>
@@ -60,6 +85,28 @@ const Register = () => {
 
     <CssBaseline />
     <form onSubmit={handleSubmit}>
+    <FormControl fullWidth>
+        <InputLabel htmlFor="firstName">First Name</InputLabel>
+        <Input
+          id="firstName"
+          type="firstName"
+          value={firstName}
+          onChange={handleFirstNameChange}
+        />
+      <br/>
+      </FormControl>
+
+      <FormControl fullWidth>
+        <InputLabel htmlFor="lastName">Last Name</InputLabel>
+        <Input
+          id="lastName"
+          type="lastName"
+          value={lastName}
+          onChange={handleLastNameChange}
+        />
+      <br/>
+      </FormControl>
+
       <FormControl fullWidth>
         <InputLabel htmlFor="email">Email address</InputLabel>
         <Input
