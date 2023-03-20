@@ -64,7 +64,7 @@ const Register = () => {
       phone: phoneNumber,
       driverLicense: licenceNumer,
       role: {
-        id: 1,
+        id: 3,
         roleName: "Customer"
       }
     };
@@ -172,6 +172,9 @@ const Register = () => {
       >
         Register
       </Button>
+      <br/>
+      <br/>
+
     </form>
     </Container>
   );

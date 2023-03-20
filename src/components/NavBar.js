@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 
 
-const navItems = [{name:"Home", link:"/home"}, {name:"Cars", link:"/cars"}, {name:"Register", link:"/register"}];
+const navItems = [{name:"Home", link:"/home"}, {name:"Cars", link:"/cars"}, {name:"Register", link:"/register"}, {name:'Login' , link:"/login"}];
 
 function handleClick(link) {      
   
