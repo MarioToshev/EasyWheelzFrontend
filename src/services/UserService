@@ -1,0 +1,21 @@
+import axios from 'axios';
+
+const api = axios.create({
+    baseURL: 'http://localhost:8080'
+  });
+
+
+class UserService{
+  async registerUser(data) {
+  try {
+    const response = await axios.post('http://localhost:8080/users', data);
+    console.log(response.data);
+  } catch (error) {
+    if (error.response) {
+        alert(error.response.data.message);
+    }
+  }
+ }
+}
+
+export default new UserService();

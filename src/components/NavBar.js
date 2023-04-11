@@ -1,11 +1,11 @@
 import React from 'react'
 import { Box,CssBaseline,AppBar,Toolbar,Typography,Button } from '@mui/material';
-import Register from './Register';
 import { NavLink } from 'react-router-dom';
 
 
 
-const navItems = [{name:"Home", link:"/home"}, {name:"Cars", link:"/cars"}, {name:"Register", link:"/register"}, {name:'Login' , link:"/login"}];
+const navItems = [{name:"Home", link:"/home"}, {name:"Cars", link:"/cars"}, {name:"Register", link:"/register"},
+ {name:'Login' , link:"/login"},{name:'Car Info' , link:"/carInfo"}, {name:'Add Car' , link:'/createCar'}];
 
 function handleClick(link) {      
   

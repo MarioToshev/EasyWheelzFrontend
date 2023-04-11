@@ -1,15 +1,19 @@
 import React from 'react';
 import NavBar from './components/NavBar';
-import { Box, Typography } from '@mui/material';
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Register from './components/Register';
-import HomePage from './components/HomePage';
+import HomePage from './pages/HomePage';
 import Cars from './components/Cars';
+import CarInfo from './components/CarInfo';
+import CreateCarPage from './pages/CreateCarPage';
+
 
 import axios from 'axios';
 import LogIn from './components/LogIn';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-const API_URL = 'http://localhost:8080';
+
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -17,7 +21,7 @@ axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 
 
-function App() {
+function App({children}) {
 
   return (
     <>
@@ -28,8 +32,16 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LogIn />} />
+          <Route path="/carInfo" element={<CarInfo />} />
+          <Route path="/createCar" element={<CreateCarPage />} />
         </Routes>
+
+
       </Router>
+
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      {children}
+    </LocalizationProvider>
     </>
   );
 }

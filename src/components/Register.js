@@ -9,13 +9,11 @@ import {
   CssBaseline,
   Typography,
 } from '@mui/material';
-import axios from 'axios';
+import UserService from '../services/UserService'
 
 
 
-const api = axios.create({
-  baseURL: 'http://localhost:8080'
-});
+
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -63,17 +61,8 @@ const Register = () => {
       email: email,
       phone: phoneNumber,
       driverLicense: licenceNumer,
-      role: {
-        id: 3,
-        roleName: "Customer"
-      }
     };
-    try {
-      const response = await axios.post('http://localhost:8080/users', data);
-      console.log(response.data); // Handle successful response
-    } catch (error) {
-      console.error(error); // Handle error
-    }
+    UserService.registerUser(data);
   };
   
 
@@ -172,9 +161,6 @@ const Register = () => {
       >
         Register
       </Button>
-      <br/>
-      <br/>
-
     </form>
     </Container>
   );
