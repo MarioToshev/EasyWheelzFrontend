@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import {Container, Box} from '@mui/material';
+import React, { useState, useEffect } from 'react'
+import { Container, Box } from '@mui/material';
 import Car from './Car';
 import CarService from '../services/CarService';
 import axios from 'axios';
@@ -46,42 +46,41 @@ const baseURL = 'http://localhost:8080/cars';
 //   ]
 
 
-function Cars()  {
+function Cars() {
 
-  
+
 
   const [cars, setCars] = useState([]);
 
-useEffect(() =>  {
-     axios.get(baseURL)
-  .then(response => 
-    {
-      setCars(response.data)
-    }
-   )
-  .catch((error) => {
-      console.log(error.response.data.message);
-  })
-}, []);
 
- const carsNotNull = () => {
-  if (cars.count === 0) 
-    return false;
-  else
-  return true;
- }
- 
+  useEffect(() => {
+    CarService.GetAllCarsCar().then(cars => {
+      setCars(cars);
+      console.log(cars);
+    });
+  }, []);
+
+  const carsNotNull = () => {
+    if (cars.count === 0)
+      return false;
+    else
+      return true;
+  }
+
 
   return (
-    <Box sx={{display:'flex', flexDirection: 'row',flexWrap:'wrap', pt:10,pl:15}}>
-      {   
+
+    <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', pt: 10, pl: 15 }}>
+      {
+
+
         cars && cars.map(car => {
-          console.log(car)
-          return(
-        <Car key={car.id} car={car} />)  
-      })
-      } 
-      
+          return (
+            <Car key={car.id} car={car} />)
+        })
+
+
+      }
     </Box>
   )
 }
