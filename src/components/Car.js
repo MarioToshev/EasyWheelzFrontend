@@ -17,14 +17,14 @@ function Car(props) {
             />
             <CardContent sx={{ flexGrow: 1, maxWidth: 400 }}>
               <Typography gutterBottom variant="h5" component="h2">
-                Heading
+                Car
               </Typography>
               <ul>
-              <li>License Plate: {props.licensePlate}</li>
-              <li>Color: {props.color}</li>
-              <li>Brand: {props.brand}</li>
-             <li>Model: {props.model}</li>
-             <li>Price per day: {props.pricePerDay}</li>
+              <li>License Plate: {props.car.licensePlate}</li>
+              <li>Color: {props.car.color}</li>
+              <li>Brand: {props.car.brand}</li>
+             <li>Model: {props.car.model}</li>
+             <li>Price per day: {props.car.pricePerDay}</li>
               </ul>
             </CardContent>
             <CardActions>

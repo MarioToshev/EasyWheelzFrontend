@@ -16,15 +16,17 @@ class CarService{
     }
   }
  }
-   async GetAllCarsCar() {
-         await axios.get(baseURL)
-        .then(response => { return response.data})
-    //     .then(json => {
-    //        console.log(json);
-    //       return [json]
-    //    })
+  async  GetAllCarsCar() {
+       await   axios.get(baseURL)
+        .then(response => 
+          {
+            console.log(response.data);
+            console.log(response);
+            return response.data
+          }
+         )
         .catch((error) => {
-            console.log(error.response);
+            console.log(error.response.data.message);
         })
     }
 }
