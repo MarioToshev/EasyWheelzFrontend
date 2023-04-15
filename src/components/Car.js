@@ -1,8 +1,21 @@
 import React from 'react'
 import {Container, Card,CardMedia,CardContent,
 Typography,CardActions,Button,Grid} from '@mui/material';
+import RentCar from './RentCar';
+import { useNavigate } from 'react-router-dom';
+
 
 function Car(props) {
+  const navigate = useNavigate();
+
+const redirectToRentCar =() =>{
+  navigate(
+    '/rentCar',
+   { state: { car : props.car}}
+   );
+}
+
+
   return (
 
     <Grid sx={{maxWidth:352, m:3}}> 
@@ -28,16 +41,11 @@ function Car(props) {
               </ul>
             </CardContent>
             <CardActions>
-              <Button size="small">Rent Now</Button>
-              <Button size="small">View</Button>
+
+            <Button size="small" onClick={redirectToRentCar}>Rent Now</Button>
             </CardActions>
           </Card>
     </Grid>
-
-   // <>
-    //{console.log(props.car)}
-    //<div>{props.car.brand}</div>
-   // </>
   )
 }
 export default Car;
