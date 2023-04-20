@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CarService from "../services/CarService";
 
 import { Button, List, ListSubheader, ListItem, Box, Card, CardMedia, Typography } from "@mui/material";
 
@@ -13,7 +14,7 @@ function RentCar(props) {
   const { state } = useLocation();
   const car = state.car;
 
-
+  const [selectedPicture, setSelectedPicture] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [totalPrice, setTotalPrice] = useState(0);
@@ -41,6 +42,27 @@ const rentCar = () => {
   });
 }
 
+const handlePictureChange = (event) => {
+  const picture = URL.createObjectURL(event.target.files[0]);
+  setSelectedPicture(picture);
+};
+
+const handlePictureUpload = (event) => {
+  event.preventDefault();
+  const photoInput = document.querySelector('#photo');
+  const photo = photoInput.files[0];
+
+  const formData = new FormData();
+  formData.append('photo', photo);
+
+  console.log(photo);
+  console.log(formData)
+  try {
+      CarService.UploadPhoto(car.id,formData);
+  } catch (error) {
+      console.log(error.data);
+  }
+};
 
 
 
@@ -71,6 +93,36 @@ const rentCar = () => {
       </Typography>
       <br />
       <br />
+
+
+      <label htmlFor="btn-upload">
+          <input
+           name="photo"
+           required
+           id="photo"
+           type="file"
+           autoFocus
+           onChange={handlePictureChange}
+           className='file-name' />
+          <Button
+            className="btn-choose"
+            variant="outlined"
+            component="span" >
+             Choose Files
+          </Button>
+        </label>
+        <div className="file-name">
+        </div>
+        <Button
+          className="btn-upload"
+          color="primary"
+          variant="contained"
+          component="span"
+          onClick={handlePictureUpload}>
+          Upload
+        </Button>
+ 
+
 
       <CardMedia
         component="img"

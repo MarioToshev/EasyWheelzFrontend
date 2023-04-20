@@ -5,6 +5,7 @@ import CarService from '../services/CarService';
 import axios from 'axios';
 
 const baseURL = 'http://localhost:8080/cars';
+
 // const cars = [
 //     {
 //         id: 2131232,
@@ -56,17 +57,8 @@ function Cars() {
   useEffect(() => {
     CarService.GetAllCarsCar().then(cars => {
       setCars(cars);
-      console.log(cars);
     });
   }, []);
-
-  const carsNotNull = () => {
-    if (cars.count === 0)
-      return false;
-    else
-      return true;
-  }
-
 
   return (
 

@@ -9,7 +9,7 @@ const navItems = [{name:"Home", link:"/home"}, {name:"Cars", link:"/cars"}, {nam
 
 function handleClick(link) {      
   
-  }
+}
 
 export default function NavBar(props) {
 
