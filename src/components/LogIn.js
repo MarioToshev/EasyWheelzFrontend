@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Button,
@@ -9,19 +9,18 @@ import {
   CssBaseline,
   Typography,
 } from '@mui/material';
-import axios from 'axios';
+import LogInService from '../services/LogInService';
+import { useNavigate } from 'react-router-dom';
 
 
 
-// const api = axios.create({
-//   baseURL: 'http://localhost:8080'
-// });
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
+  const navigate = useNavigate();
+ 
   
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -31,25 +30,18 @@ const LogIn = () => {
   };
   
  
-  const handleSubmit = async (event) => {
-    // event.preventDefault();
-    // const data = {
-    //   firstName: firstName,
-    //   lastName:lastName ,
-    //   email: email,
-    //   phone: phoneNumber,
-    //   driverLicense: licenceNumer,
-    //   role: {
-    //     id: 3,
-    //     roleName: "Customer"
-    //   }
-    // };
-    // try {
-    //   const response = await axios.post('http://localhost:8080/users', data);
-    //   console.log(response.data); // Handle successful response
-    // } catch (error) {
-    //   console.error(error); // Handle error
-    // }
+  const handleSubmit = async () => {
+    let data = {
+      email: email,
+      password: password
+    }
+    console.log(data);
+    const response = await LogInService.login(data) 
+    console.log(response);
+    if(response != null) {
+      navigate("/cars")
+    }
+    window.location.reload(false);
   };
   
 
@@ -60,7 +52,7 @@ const LogIn = () => {
       <br/>
 
     <CssBaseline />
-    <form onSubmit={handleSubmit}>
+    <form>
 
 
       <FormControl fullWidth>
@@ -86,9 +78,9 @@ const LogIn = () => {
       <br/>
       </FormControl>
       <Button
-        type="submit"
         variant="contained"
         fullWidth
+        onClick={handleSubmit}
       >
         LogIn
       </Button>

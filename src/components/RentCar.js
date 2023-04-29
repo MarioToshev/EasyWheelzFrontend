@@ -10,7 +10,7 @@ import  ReservcationService from "../services/ReservationService";
 import {useLocation} from "react-router-dom"
 
 
-function RentCar(props) {
+function RentCar() {
   const { state } = useLocation();
   const car = state.car;
 

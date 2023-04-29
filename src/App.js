@@ -5,6 +5,12 @@ import Register from './pages/Register';
 import HomePage from './pages/HomePage';
 import Cars from './components/Cars';
 import CreateCarPage from './pages/CreateCarPage';
+import EditCarPage from './pages/EditCarPage';
+import UserProfilePage from './pages/UserProfilePage';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 import axios from 'axios';
@@ -25,6 +31,7 @@ function App({children}) {
 
   return (
     <>
+    <ToastContainer/>
       <Router>
         <NavBar />
         <Routes>3
@@ -34,6 +41,9 @@ function App({children}) {
           <Route path="/login" element={<LogIn />} />
           <Route path="/rentCar" element={<RentCar />} />
           <Route path="/createCar" element={<CreateCarPage />} />
+          <Route path="/editCar" element={<EditCarPage />} />
+          <Route path='/profile' element={<UserProfilePage/>}/>     
+
         </Routes>
 
 

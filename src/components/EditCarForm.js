@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import { useState, useEffect } from 'react';
 import {
     Container,
     Button,
@@ -10,15 +10,10 @@ import {
   } from '@mui/material';
   import CarService from '../services/CarService';
 
-
-
   
 
 
-
-
-const CarForm = () => {
-
+function EditCarForm (props){
     
     const [licensePlate, setLicensePlate] = useState('');
     const [model, setModel] = useState('');
@@ -26,7 +21,13 @@ const CarForm = () => {
     const [pricePerDay, setPricePerDay] = useState(0);
     const [color, setColor] = useState('');
 
-   
+    useEffect(() => {
+        setLicensePlate(props.car.licensePlate);
+        setModel(props.car.model);
+        setBrand(props.car.brand);
+        setPricePerDay(props.car.pricePerDay);
+        setColor(props.car.color);
+      }, []);
 
 
     const handleLicensePlateChange = (event) => {
@@ -48,20 +49,21 @@ const CarForm = () => {
       const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {
+            id : props.car.id,
             licensePlate: licensePlate,
             model:model ,
             brand: brand,
           pricePerDay: pricePerDay,
           color: color
           }
-          CarService.createCar(data);
+          CarService.updateCar(data);
         };
       
 
 
   return (
     <Container component="main" maxWidth="xs" sx={{mx: 'auto',pt:'150px'}}>
-    <Typography variant='h4'>Add new car</Typography>
+    <Typography variant='h4'>Edit car</Typography>
     <br/>
 
   <CssBaseline />
@@ -78,7 +80,7 @@ const CarForm = () => {
     </FormControl>
     <FormControl fullWidth>
       <InputLabel htmlFor="brand">Brand</InputLabel>
-      <Input
+      <Input 
         id="brand"
         type="text"
         value={brand}
@@ -124,10 +126,10 @@ const CarForm = () => {
       variant="contained"
       fullWidth
     >
-      Add
+      Update
     </Button>
   </form>
   </Container>
   )
 }
-export default CarForm;
+export default EditCarForm;
