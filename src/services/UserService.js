@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const  baseURL = 'http://localhost:8080/users'
 
@@ -7,7 +9,12 @@ const  baseURL = 'http://localhost:8080/users'
 class UserService{
 
   getAllUsers(){
-      return axios.get(baseURL)
+    const token = JSON.parse(localStorage.getItem('EncodedToken'));
+      return axios.get(baseURL,{
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
         .then((response) => {return response.data})
   }
 
@@ -15,16 +22,37 @@ class UserService{
      axios.delete(`${baseURL}/${data}`);
 }
 
-  async registerUser(data) {
-  try {
-    const response = await axios.post(baseURL, data);
-    console.log(response.data);
-  } catch (error) {
-    if (error.response) {
-        alert(error.response.data.message);
-    }
-  }
+   registerUser(data) {
+      return axios.post(baseURL, data)
+    .then((response) => {
+      if (response.status === 201) {
+        toast.success('Action successful !', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          
+        });
+      }
+      return response.data;
+    })
+  .catch ( error => {
+   toast.error(error.response.data.message, {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+  return Promise.reject(error);
+  })
  }
+
 }
 
 export default new UserService();

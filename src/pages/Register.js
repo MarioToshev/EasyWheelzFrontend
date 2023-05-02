@@ -11,11 +11,15 @@ import {
 } from '@mui/material';
 import UserService from '../services/UserService'
 
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 const Register = () => {
+
+const navigate = useNavigate();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -61,8 +65,9 @@ const Register = () => {
       email: email,
       phone: phoneNumber,
       driverLicense: licenceNumer,
+      password : password,
     };
-    UserService.registerUser(data);
+      UserService.registerUser(data).then(() => {  navigate("/login")});
   };
   
 

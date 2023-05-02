@@ -60,7 +60,37 @@ class CarService {
       .then(response => { return response.data })
   }
   UploadPhoto(id, data) {
-    api.post(baseURL + `/${id}`, data)
+    const token = JSON.parse(localStorage.getItem('EncodedToken'));
+    console.log(token);
+    api.post(baseURL + `/${id}`, data,{
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }).then(res => {
+      if (res.status === 200) {
+        toast.success('Action successful!', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: { backgroundColor: 'c9d07d' },
+        });
+      }
+    }).catch(err => {
+      toast.error(err.response.data.message, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: { backgroundColor: 'c9d07d' },
+      });
+    })
   }
 }
 

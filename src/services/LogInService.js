@@ -13,13 +13,14 @@ class LogInService {
   login(data) {
      return axios.post(baseURL, data)
       .then(response => {
-        const token = JSON.stringify(response.data);
+        const token = response.data.accessToken;
         const decToken = jwt(token);
+        console.log(token);
+        console.log(decToken);
 
-        localStorage.setItem('EncodedToken',  JSON.stringify(token));
-        localStorage.setItem('DecodedToken', JSON.stringify(decToken));
-        console.log(localStorage.getItem('DecodedToken'));
 
+         localStorage.setItem('EncodedToken',  JSON.stringify(token));
+         localStorage.setItem('DecodedToken',JSON.stringify(decToken));
         if (response.status === 201) {
           toast.success('Welcome back!', {
             position: 'top-right',

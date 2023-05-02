@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-
 const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,13 +34,13 @@ const LogIn = () => {
       email: email,
       password: password
     }
-    console.log(data);
+
     const response = await LogInService.login(data) 
-    console.log(response);
+    
     if(response != null) {
       navigate("/cars")
     }
-    window.location.reload(false);
+    navigate(0);
   };
   
 

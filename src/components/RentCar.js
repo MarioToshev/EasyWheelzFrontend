@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from "react";
-import CarService from "../services/CarService";
 
-import { Button, List, ListSubheader, ListItem, Box, Card, CardMedia, Typography } from "@mui/material";
+import { Button, Box, Card, CardMedia, Typography } from "@mui/material";
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import  ReservcationService from "../services/ReservationService";
-import {useLocation} from "react-router-dom"
+import ReservcationService from "../services/ReservationService";
+import { useLocation } from "react-router-dom"
 
 
 function RentCar() {
   const { state } = useLocation();
   const car = state.car;
 
-  const [selectedPicture, setSelectedPicture] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const calculateTotalPrice= () =>
-  { 
-    if (startDate != null && endDate != null){
+  const calculateTotalPrice = () => {
+    if (startDate != null && endDate != null) {
       var difference = endDate - startDate;
 
       setTotalPrice(Math.ceil(difference / (1000 * 3600 * 24)) * car.pricePerDay);
@@ -30,39 +27,18 @@ function RentCar() {
 
 
 
-const rentCar = () => {
-  calculateTotalPrice();
-  ReservcationService.createReservation({
-    pickUpDate : startDate,
-    returnDate : endDate,
-    rentalRate: car.pricePerDay,
-    totalCost : totalPrice,
-    customer : null,
-    car: car,
-  });
-}
-
-const handlePictureChange = (event) => {
-  const picture = URL.createObjectURL(event.target.files[0]);
-  setSelectedPicture(picture);
-};
-
-const handlePictureUpload = (event) => {
-  event.preventDefault();
-  const photoInput = document.querySelector('#photo');
-  const photo = photoInput.files[0];
-
-  const formData = new FormData();
-  formData.append('photo', photo);
-
-  console.log(photo);
-  console.log(formData)
-  try {
-      CarService.UploadPhoto(car.id,formData);
-  } catch (error) {
-      console.log(error.data);
+  const rentCar = () => {
+    calculateTotalPrice();
+    ReservcationService.createReservation({
+      pickUpDate: startDate,
+      returnDate: endDate,
+      rentalRate: car.pricePerDay,
+      totalCost: totalPrice,
+      customer: null,
+      car: car,
+    });
   }
-};
+
 
 
 
@@ -88,56 +64,32 @@ const handlePictureUpload = (event) => {
         padding: 24,
       }}
     >
+       <br />
+      <br />
+      <br />
+      <br />
       <Typography variant="h2" component="h2" align="center">
         Car Details
       </Typography>
       <br />
       <br />
 
-
-      <label htmlFor="btn-upload">
-          <input
-           name="photo"
-           required
-           id="photo"
-           type="file"
-           autoFocus
-           onChange={handlePictureChange}
-           className='file-name' />
-          <Button
-            className="btn-choose"
-            variant="outlined"
-            component="span" >
-             Choose Files
-          </Button>
-        </label>
-        <div className="file-name">
-        </div>
-        <Button
-          className="btn-upload"
-          color="primary"
-          variant="contained"
-          component="span"
-          onClick={handlePictureUpload}>
-          Upload
-        </Button>
- 
-
-
+      
+      
       <CardMedia
         component="img"
         sx={{
-          maxWidth: "30%",
+          maxWidth: "40%",
           maxHeight: "30vh",
           mb: "20px",
           border: "3px solid #ccc",
           borderRadius: "10px"
         }}
-        image="https://source.unsplash.com/random"
+        image={car.photoUrl}
         alt="car"
       />
       <Box sx={{
-        fontWeight: 300, lineHeight: '24px', fontSize: '24px', color: 'black'
+        fontWeight: 200, lineHeight: '24px', fontSize: '20px', color: 'black'
       }}>
 
 

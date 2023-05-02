@@ -9,6 +9,9 @@ const navItems = [{ name: "Home", link: "/home" }, { name: "Cars", link: "/cars"
 
 const loggedCustomer = [{ name: "Home", link: "/home" }, { name: "Cars", link: "/cars" }, { name: "Profile", link: "/profile" }];
 
+const loggedAdmin = [{ name: "Home", link: "/home" }, { name: "Cars", link: "/cars" }, { name: "Profile", link: "/profile" },{ name: 'Add Car', link: '/createCar' }];
+
+
 function handleClick(link) {
 }
 
@@ -16,6 +19,9 @@ function getUserPages() {
   if (localStorage.getItem('DecodedToken') != null) {
     if (JSON.parse(localStorage.getItem('DecodedToken')).roles.includes("Customer")) {
       return loggedCustomer;
+    }
+    else if (JSON.parse(localStorage.getItem('DecodedToken')).roles.includes("Admin")) {
+      return loggedAdmin;
     }
   }
   else {

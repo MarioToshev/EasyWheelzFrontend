@@ -14,7 +14,7 @@ import {
 
 
 function EditCarForm (props){
-    
+  const [selectedPicture, setSelectedPicture] = useState(null);
     const [licensePlate, setLicensePlate] = useState('');
     const [model, setModel] = useState('');
     const [brand, setBrand] = useState('');
@@ -29,7 +29,28 @@ function EditCarForm (props){
         setColor(props.car.color);
       }, []);
 
-
+      const handlePictureChange = (event) => {
+        const picture = URL.createObjectURL(event.target.files[0]);
+        setSelectedPicture(picture);
+      };
+    
+      const handlePictureUpload = (event) => {
+        event.preventDefault();
+        const photoInput = document.querySelector('#photo');
+        const photo = photoInput.files[0];
+    
+        const formData = new FormData();
+        formData.append('photo', photo);
+    
+        console.log(photo);
+        console.log(formData)
+        try {
+          CarService.UploadPhoto(props.car.id, formData);
+        } catch (error) {
+          console.log(error.data);
+        }
+      };
+    
     const handleLicensePlateChange = (event) => {
         setLicensePlate(event.target.value);
       }
@@ -53,6 +74,7 @@ function EditCarForm (props){
             licensePlate: licensePlate,
             model:model ,
             brand: brand,
+            photoUrl: props.car.photoUrl,
           pricePerDay: pricePerDay,
           color: color
           }
@@ -65,7 +87,37 @@ function EditCarForm (props){
     <Container component="main" maxWidth="xs" sx={{mx: 'auto',pt:'150px'}}>
     <Typography variant='h4'>Edit car</Typography>
     <br/>
+    <Button
+          name ="photo"
+            className="btn-choose"
+            variant="outlined"
+            component="span" >
 
+          <Input
+           name="photo"
+           required
+           id="photo"
+           type="file"
+           autoFocus
+           onChange={handlePictureChange}
+           className='file-name' />
+          </Button>
+      <div className="file-name">
+      </div>
+      <br/>
+      <Button
+        className="btn-upload"
+        color="primary"
+        variant="contained"
+        component="span"
+        onClick={handlePictureUpload}>
+        Upload photo
+      </Button>
+
+
+      <br/>
+      <br/>
+      <br/>
   <CssBaseline />
   <form onSubmit={handleSubmit}>
   <FormControl fullWidth>
@@ -119,6 +171,10 @@ function EditCarForm (props){
        onChange={handleColorChange}
       />
     </FormControl>
+  
+
+
+
     <br/>
     <br/>
     <Button
@@ -129,7 +185,11 @@ function EditCarForm (props){
       Update
     </Button>
   </form>
+  <br/>
+  <br/>
+
   </Container>
+  
   )
 }
 export default EditCarForm;

@@ -33,8 +33,8 @@ function Car(props) {
         <CardMedia
           component="img"
           sx={{ width: 350, height: 250, p: 1 }}
-          image="https://source.unsplash.com/random"
-          alt="random"
+          image={props.car.photoUrl}
+          alt="car photo"
         />
         <CardContent sx={{ flexGrow: 1, maxWidth: 400 }}>
           <Typography gutterBottom variant="h5" component="h2">
@@ -52,7 +52,6 @@ function Car(props) {
 
           <Button size="small" onClick={redirectToRentCar}>Rent Now</Button>
           <Button size="small" onClick={redirectToEditCar}>Edit</Button>
-
         </CardActions>
       </Card>
     </Grid>

@@ -21,9 +21,11 @@ function Cars() {
         cars && cars.map(car => {
           return (
             <Car key={car.id} car={car} />)
+            
         })
       }
     </Box>
+
   )
 }
 
