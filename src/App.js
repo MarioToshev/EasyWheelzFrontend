@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from './components/NavBar';
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Register from './pages/Register';
-import HomePage from './pages/HomePage';
+import UsersPage from './pages/UsersPage';
 import Cars from './components/Cars';
 import CreateCarPage from './pages/CreateCarPage';
 import EditCarPage from './pages/EditCarPage';
@@ -46,12 +46,18 @@ function App({children}) {
         <Routes>
           <Route path="/cars" element={<Cars />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<HomePage />} />
+          
           <Route path="/login" element={<LogIn />} />
           <Route path="/rentCar" element={<RentCar />} />
+          
           {userRoles.includes("Admin") ? (
             <Route path="/createCar" element={<CreateCarPage />} />
           ) :   <Route path="/createCar" element={<NotFoundPage />} /> }
+
+          {userRoles.includes("Admin") ? (
+            <Route path="/users" element={<UsersPage />} />
+          ) :   <Route path="/users" element={<NotFoundPage />} /> }
+
            {userRoles.includes("Admin") ? (
             <Route path="/editCar" element={<EditCarPage />} />
           ) :   <Route path="/editCar" element={<NotFoundPage />} /> }

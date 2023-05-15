@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Button, Box, Card, CardMedia, Typography } from "@mui/material";
 
@@ -7,9 +7,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import ReservcationService from "../services/ReservationService";
 import { useLocation } from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
 
 
 function RentCar() {
+  const navigate = useNavigate();
+
+
+ 
   const { state } = useLocation();
   const car = state.car;
 
@@ -28,17 +33,31 @@ function RentCar() {
 
 
   const rentCar = () => {
-    calculateTotalPrice();
+    const email = returnEmailIfUserIsLogged();
+    if(email){
+      sendRentRequest(email);
+    }
+    else{
+      navigate('/login')
+    }
+  }
+  const returnEmailIfUserIsLogged = () =>{
+    if(localStorage.getItem('DecodedToken')){
+      return JSON.parse(localStorage.getItem('DecodedToken')).sub;
+    }
+  }
+const sendRentRequest= (email) => {
+  calculateTotalPrice();
+  console.log(email);
     ReservcationService.createReservation({
       pickUpDate: startDate,
       returnDate: endDate,
       rentalRate: car.pricePerDay,
       totalCost: totalPrice,
-      customer: null,
+      customerEmail: email,
       car: car,
     });
-  }
-
+}
 
 
 
@@ -52,78 +71,75 @@ function RentCar() {
 
 
   return (
-
-    <Card
-      sx={{
-        mt: 3,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        padding: 24,
-      }}
-    >
-       <br />
+    <>
       <br />
       <br />
-      <br />
-      <Typography variant="h2" component="h2" align="center">
-        Car Details
-      </Typography>
-      <br />
-      <br />
-
-      
-      
-      <CardMedia
-        component="img"
+      <Card
         sx={{
-          maxWidth: "40%",
-          maxHeight: "30vh",
-          mb: "20px",
-          border: "3px solid #ccc",
-          borderRadius: "10px"
+          mt: 3,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          padding: 24,
         }}
-        image={car.photoUrl}
-        alt="car"
-      />
-      <Box sx={{
-        fontWeight: 200, lineHeight: '24px', fontSize: '20px', color: 'black'
-      }}>
+      >
+
+        <Typography variant="h2" component="h2" align="center">
+          Car Details
+        </Typography>
+        <br />
+        <br />
 
 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+        <CardMedia
+          component="img"
+          sx={{
+            maxWidth: "40%",
+            maxHeight: "30vh",
+            mb: "20px",
+            border: "3px solid #ccc",
+            borderRadius: "10px"
+          }}
+          image={car.photoUrl}
+          alt="car"
+        />
+        <Box sx={{
+          fontWeight: 200, lineHeight: '24px', fontSize: '20px', color: 'black'
+        }}>
 
 
-          <DatePicker selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            shouldDisableDate={isBeforeToday}
-            placeholderText="Select a date other than today or yesterday" />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
 
 
-          <DatePicker selected={endDate}
-            onChange={(date) => setEndDate(date)}
-            shouldDisableDate={isBeforeStartDay}
-            placeholderText="Select a date other than today or yesterday" />
-        </LocalizationProvider>
+            <DatePicker selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              shouldDisableDate={isBeforeToday}
+              placeholderText="Select a date other than today or yesterday" />
 
-        <ul>
-          <li>License Plate: {car.licensePlate}</li>
-          <li>Color: {car.color}</li>
-          <li>Brand: {car.brand}</li>
-          <li>Model: {car.model}</li>
-          <li>Price per day: {car.pricePerDay}</li>
-        </ul>
 
-        <Button onClick={calculateTotalPrice}>Calculate total price</Button>
-        <p> TOTAL PRICE : {totalPrice} </p>
+            <DatePicker selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              shouldDisableDate={isBeforeStartDay}
+              placeholderText="Select a date other than today or yesterday" />
+          </LocalizationProvider>
 
-        <Button onClick={rentCar}>Rent now</Button>
+          <ul>
+            <li>License Plate: {car.licensePlate}</li>
+            <li>Color: {car.color}</li>
+            <li>Brand: {car.brand}</li>
+            <li>Model: {car.model}</li>
+            <li>Price per day: {car.pricePerDay}</li>
+          </ul>
 
-      </Box>
-
-    </Card>
+          <Button variant='contained' onClick={calculateTotalPrice}>Calculate total price</Button>
+          <p> TOTAL PRICE : {totalPrice} </p>
+          <Button  variant='contained' onClick={rentCar}>Rent now</Button>
+        </Box>
+      </Card>
+    </>
   );
 }
 

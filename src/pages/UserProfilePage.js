@@ -12,6 +12,9 @@ import {
 import LogOut from '../components/LogOut';
 
 export default function UserProfilePage() {
+
+  const email = JSON.parse(localStorage.getItem('DecodedToken')).sub;
+  console.log(email);
   return (
     <Container>
         <br/>
@@ -19,9 +22,10 @@ export default function UserProfilePage() {
         <br/>
         <br/>
         <br/>
-        <br/>
-        <br/>
-    <Typography>UserProfilePage</Typography>
+    <Typography variant='h4'>Profile</Typography>
+    <br/>
+
+    <Typography>Welcome back {email}</Typography>
     <LogOut/>
     </Container>
   )

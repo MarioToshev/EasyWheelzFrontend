@@ -4,12 +4,12 @@ import { NavLink } from 'react-router-dom';
 
 
 
-const navItems = [{ name: "Home", link: "/home" }, { name: "Cars", link: "/cars" }, { name: "Register", link: "/register" },
-{ name: 'Login', link: "/login" }, { name: 'Add Car', link: '/createCar' }];
+const navItems = [ { name: "Cars", link: "/cars" }, { name: "Register", link: "/register" },
+{ name: 'Login', link: "/login" }];
 
-const loggedCustomer = [{ name: "Home", link: "/home" }, { name: "Cars", link: "/cars" }, { name: "Profile", link: "/profile" }];
+const loggedCustomer = [{ name: "Cars", link: "/cars" }, { name: "Profile", link: "/profile" }];
 
-const loggedAdmin = [{ name: "Home", link: "/home" }, { name: "Cars", link: "/cars" }, { name: "Profile", link: "/profile" },{ name: 'Add Car', link: '/createCar' }];
+const loggedAdmin = [{ name: "Users", link: "/users" },{ name: 'Add Car', link: '/createCar' }, { name: "Cars", link: "/cars" }, { name: "Profile", link: "/profile" }];
 
 
 function handleClick(link) {

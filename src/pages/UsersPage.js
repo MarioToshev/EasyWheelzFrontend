@@ -6,20 +6,20 @@ import UserService from '../services/UserService';
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
-const HomePage= () => {
+function UsersPage() {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     UserService.getAllUsers().then(users => {
       setUserData(users);
-      console.log(users)
-  }
-  )
-}, []);
+      console.log(users);
+    }
+    );
+  }, []);
 
   return (
-       <UsersTable users = {userData}/>
+    <UsersTable users={userData} />
   );
 }
 
-export default HomePage;
+export default UsersPage;

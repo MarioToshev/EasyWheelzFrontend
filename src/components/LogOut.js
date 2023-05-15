@@ -18,7 +18,7 @@ const navigate = useNavigate();
 
   return (
     <form onSubmit={handleLogOut}>
-      <Button className='primary' type='submit'> Logo out</Button>
+      <Button className='primary' type='submit'> Log out</Button>
     </form>
   )
 }
