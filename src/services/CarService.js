@@ -36,8 +36,8 @@ class CarService {
             style: { backgroundColor: 'c9d07d' },
           });
         }
-       
-      }).catch( error => {
+
+      }).catch(error => {
         toast.error(error.message, {
           position: 'top-right',
           autoClose: 3000,
@@ -62,7 +62,7 @@ class CarService {
   UploadPhoto(id, data) {
     const token = JSON.parse(localStorage.getItem('EncodedToken'));
     console.log(token);
-    api.post(baseURL + `/${id}`, data,{
+    api.post(baseURL + `/${id}`, data, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -92,6 +92,20 @@ class CarService {
       });
     })
   }
+  filterCars(data) {
+    return axios.post(`${baseURL}/filters`, data)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+      });
+  }
+  getAllCarBrands() {
+    return axios.get(`${baseURL}/brands`)
+      .then(response => { 
+        console.log(response.data);
+        return response.data })
+  }
 }
-
 export default new CarService();

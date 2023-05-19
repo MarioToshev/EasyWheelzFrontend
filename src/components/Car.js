@@ -1,4 +1,5 @@
 import React from 'react'
+
 import {
   Container, Card, CardMedia, CardContent,
   Typography, CardActions, Button, Grid
@@ -7,6 +8,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Car(props) {
+  let userRoles = [];
+
+  if(localStorage.getItem('DecodedToken') !== null) {
+     userRoles = JSON.parse(localStorage.getItem('DecodedToken')).roles;
+  }
   const navigate = useNavigate();
 
   const redirectToRentCar = () => {
@@ -51,7 +57,10 @@ function Car(props) {
         <CardActions>
 
           <Button size="small" onClick={redirectToRentCar}>Rent Now</Button>
-          <Button size="small" onClick={redirectToEditCar}>Edit</Button>
+       
+          {userRoles.includes("Admin") === 'ADMIN' && (
+            <Button size="small" onClick={redirectToEditCar}>Edit</Button>
+          )}
         </CardActions>
       </Card>
     </Grid>

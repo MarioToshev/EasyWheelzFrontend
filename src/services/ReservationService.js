@@ -4,6 +4,7 @@ const baseURL = 'http://localhost:8080/reservations'
 
 class ReservationService{
     async createReservation(data) {
+      	  console.log(data);
 
       const token = JSON.parse(localStorage.getItem('EncodedToken'));
         try {
