@@ -11,16 +11,14 @@ const api = axios.create({
 });
 
 class CarService {
-  async createCar(data) {
-    try {
-      const response = await axios.post(baseURL, data);
-      console.log(response.data);
-    } catch (error) {
-      if (error.response) {
+   createCar(data) {
+   return axios.post(baseURL, data).then(response => {return response.data})
+    . catch (error => 
+       {
         alert(error.response.data.message);
-      }
+      })
     }
-  }
+  
   async updateCar(data) {
     await axios.put(baseURL, data)
       .then(response => {

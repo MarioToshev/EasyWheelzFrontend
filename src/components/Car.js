@@ -58,7 +58,7 @@ function Car(props) {
 
           <Button size="small" onClick={redirectToRentCar}>Rent Now</Button>
        
-          {userRoles.includes("Admin") === 'ADMIN' && (
+          {userRoles.includes("Admin") && (
             <Button size="small" onClick={redirectToEditCar}>Edit</Button>
           )}
         </CardActions>

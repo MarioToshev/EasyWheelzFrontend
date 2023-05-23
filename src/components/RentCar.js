@@ -24,7 +24,7 @@ function RentCar() {
 
   const calculateTotalPrice = () => {
     if (startDate != null && endDate != null) {
-      var difference = endDate - startDate;
+      var difference = endDate - startDate + 1;
 
       setTotalPrice(Math.ceil(difference / (1000 * 3600 * 24)) * car.pricePerDay);
     }
@@ -56,7 +56,13 @@ const sendRentRequest= (email) => {
       totalCost: totalPrice,
       customerEmail: email,
       car: car,
-    });
+    }).then(response => {
+      if(response.status === 201){
+        navigate('/profile')
+      }
+     });
+
+   
 }
 
 

@@ -8,7 +8,7 @@ import CreateCarPage from './pages/CreateCarPage';
 import EditCarPage from './pages/EditCarPage';
 import UserProfilePage from './pages/UserProfilePage';
 import NotFoundPage from './pages/errorPages/NotFoundPage';
-
+import NotificationComponent from './components/NotificationComponent';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -40,7 +40,6 @@ function App({children}) {
 
   return (
     <>
-    <ToastContainer/>
       <Router>
         <NavBar />
         <Routes>
@@ -63,7 +62,7 @@ function App({children}) {
           ) :   <Route path="/editCar" element={<NotFoundPage />} /> }
           
           <Route path='/profile' element={<UserProfilePage/>}/>     
-
+          {/* <Route path='/not' element={<NotificationComponent/>}/>      */}
         </Routes>
 
 
@@ -72,6 +71,9 @@ function App({children}) {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
       {children}
     </LocalizationProvider>
+    <NotificationComponent />
+    <ToastContainer/>
+
     </>
   );
 }
