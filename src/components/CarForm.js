@@ -39,25 +39,13 @@ const CarForm = () => {
   const handlePricePerDayChange = (event) => {
     setPricePerDay(event.target.value);
   };
-
+  useEffect(() => {
+      setupStompClient();
+  }, []);
 
   const [stompClient, setStompClient] = useState();
 
   const setupStompClient = () => {
-
-  //  const socket = SockJS('http://localhost:8080/ws');
-
-  //  const stompClient = Stomp.over(socket);
-
-  //    stompClient.connect({},   ()  =>  {
-  //    stompClient.subscribe("/topic/publicmessages", (data) => {});
-  //  });
-   
-  //  setStompClient(stompClient);
-
-
-
-
     const stompClient1 = new Client({
       brokerURL: 'ws://localhost:8080/ws',
       reconnectDelay: 5000,
@@ -76,13 +64,11 @@ const CarForm = () => {
   };
 
   const sendMessage = (message) => {
-   // stompClient.send('/topic/publicmessages', JSON.stringify(message));
    stompClient.publish({ destination: '/topic/publicmessages', body: JSON.stringify(message) });
   };
 
 
   const handleSubmit =()=> {
-
     const data = {
       licensePlate: licensePlate,
       model: model,
@@ -90,12 +76,13 @@ const CarForm = () => {
       pricePerDay: pricePerDay,
       color: color,
     };
-       CarService.createCar(data)
-       .then (response => {
+
+      CarService.createCar(data)
+      .then (() => {
         console.log(stompClient);
         setupStompClient();
-        sendMessage("New car was added");
-       });
+       sendMessage("New car was added");
+       })
   };
 
   return (
@@ -104,7 +91,6 @@ const CarForm = () => {
       <br />
 
       <CssBaseline />
-    {/* <form onSubmit={handleSubmit}> */}
         <FormControl fullWidth>
           <InputLabel htmlFor="licensePlate">License plate</InputLabel>
           <Input
@@ -160,7 +146,6 @@ const CarForm = () => {
         <Button type="submit" onClick= {handleSubmit} variant="contained" fullWidth >
           Add
         </Button>
-      {/* </form> */}
 
     
     </Container>

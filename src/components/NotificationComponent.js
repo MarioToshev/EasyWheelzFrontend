@@ -41,13 +41,13 @@ const NotificationComponent = (props) => {
     stompClient.publish({ destination: '/topic/publicmessages', body: JSON.stringify(message) });
   };
 
-  const onMessageReceived = (data) => {
-    const message = JSON.parse(data.body);
-    if (!messagesReceived.includes(message)) {
-      setMessagesReceived((prevMessages) => [...prevMessages, message]);
-      toast(message);
-    }
-  };
+    const onMessageReceived = (data) => {
+      const message = JSON.parse(data.body);
+      if (!messagesReceived.includes(message)) {
+        setMessagesReceived((prevMessages) => [...prevMessages, message]);
+        toast(message);
+      }
+    };
 
   return (<></>
     // <div>

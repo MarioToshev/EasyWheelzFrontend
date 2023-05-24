@@ -15,7 +15,9 @@ class CarService {
    return axios.post(baseURL, data).then(response => {return response.data})
     . catch (error => 
        {
-        alert(error.response.data.message);
+
+        toast.error(error.response.data.message)
+        throw error;
       })
     }
   
