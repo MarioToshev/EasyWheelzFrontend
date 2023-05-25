@@ -21,6 +21,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import RentCar from './components/RentCar';
 import { InputGroup } from 'react-bootstrap';
+import Statistics from './pages/Statistics';
 
 
 
@@ -62,7 +63,7 @@ function App({children}) {
           ) :   <Route path="/editCar" element={<NotFoundPage />} /> }
           
           <Route path='/profile' element={<UserProfilePage/>}/>     
-          {/* <Route path='/not' element={<NotificationComponent/>}/>      */}
+          <Route path='/stat' element={<Statistics/>}/>
         </Routes>
 
 

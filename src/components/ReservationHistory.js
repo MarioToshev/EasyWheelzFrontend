@@ -23,9 +23,6 @@ function ReservationHistory(props) {
             <TableCell><b>Car</b></TableCell>
             <TableCell><b>Price per day</b></TableCell>
             <TableCell><b>Total price</b></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
