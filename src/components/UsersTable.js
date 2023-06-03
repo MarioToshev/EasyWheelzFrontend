@@ -8,9 +8,11 @@ import {Typography,Button} from '@mui/material';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import UserService from '../services/UserService';
-
+import {  useNavigate } from 'react-router-dom'
 
 function UsersTable(props) {
+
+  const navigate = useNavigate();
 
     function refreshPage() {
         window.location.reload(false);
@@ -33,6 +35,22 @@ function UsersTable(props) {
             }
           ]
         });
+    }
+
+
+    function getUserHistory(userId, userName){
+      const url = '/history';
+      const state = { userId: userId, userName: userName };
+    
+      navigate(url, { state: state });
+    }
+
+
+    function updateUser(user){
+      const url = '/users/update';
+      const state = { user: user };
+    
+      navigate(url, { state: state });
     }
     
   return (
@@ -70,8 +88,8 @@ function UsersTable(props) {
           <TableCell><Button onClick={() => deleteUser(user.id)}>
              Delete
             </Button></TableCell>
-          <TableCell><Button> Update</Button></TableCell>
-          <TableCell><Button> Reservation history</Button></TableCell>
+          <TableCell><Button onClick={() => updateUser(user)}> Update</Button></TableCell>
+          <TableCell><Button onClick={() => getUserHistory(user.id,(user.firstName + " "+ user.lastName))}> Reservation history</Button></TableCell>
         </TableRow>
       ))}
     </TableBody>

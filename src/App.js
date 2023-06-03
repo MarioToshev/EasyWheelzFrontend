@@ -22,6 +22,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import RentCar from './components/RentCar';
 import { InputGroup } from 'react-bootstrap';
 import Statistics from './pages/Statistics';
+import UserReservationHistoryPage from './pages/UserReservationHistoryPage';
+import UpdateForm from './components/UpdateForm';
 
 
 
@@ -64,7 +66,10 @@ function App({children}) {
           
           <Route path='/profile' element={<UserProfilePage/>}/>     
           <Route path='/stat' element={<Statistics/>}/>
+          <Route path="/history" element = {<UserReservationHistoryPage />}/>
+          <Route path="/users/update" element = {<UpdateForm />}/>
         </Routes>
+
 
 
       </Router>

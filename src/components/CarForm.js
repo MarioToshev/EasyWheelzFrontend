@@ -81,7 +81,7 @@ const CarForm = () => {
       .then (() => {
         console.log(stompClient);
         setupStompClient();
-       sendMessage("New car was added");
+       sendMessage(`${data.color} ${data.brand} ${data.model} was just added`);
        })
   };
 

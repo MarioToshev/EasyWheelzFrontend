@@ -19,7 +19,13 @@ class UserService{
   }
 
   deleteUser(data){
-     axios.delete(`${baseURL}/${data}`);
+    const token = JSON.parse(localStorage.getItem('EncodedToken'));
+
+     axios.delete(`${baseURL}/${data}`,{
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
 }
 
    registerUser(data) {
@@ -52,6 +58,26 @@ class UserService{
   return Promise.reject(error);
   })
  }
+
+ updateUser(data) {
+  const token = JSON.parse(localStorage.getItem('EncodedToken'));
+
+  return axios.put(baseURL, data,{
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  })
+.then((response) => {
+  if (response.status === 201) {
+    toast.success('Action successful !');
+  }
+  return response.data;
+})
+.catch ( error => {
+toast.error(error.response.data.message);
+return Promise.reject(error);
+})
+}
 
 }
 

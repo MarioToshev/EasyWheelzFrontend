@@ -9,7 +9,7 @@ const navItems = [ { name: "Cars", link: "/cars" }, { name: "Register", link: "/
 
 const loggedCustomer = [{ name: "Cars", link: "/cars" }, { name: "Profile", link: "/profile" }];
 
-const loggedAdmin = [{ name: "Users", link: "/users" },{ name: 'Add Car', link: '/createCar' }, { name: "Cars", link: "/cars" }, { name: " Profile", link: "/profile" }];
+const loggedAdmin = [{ name: "Users", link: "/users" }, { name: "Cars", link: "/cars" }, { name: "Statistics", link: "/stat" },{ name: 'Add Car', link: '/createCar' }, { name: " Profile", link: "/profile" }];
 
 
 function handleClick(link) {

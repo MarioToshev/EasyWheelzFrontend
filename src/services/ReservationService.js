@@ -41,7 +41,14 @@ class ReservationService{
       }
 
     getAllReservatiosOfUserOrdered(userId){
-      return axios.post(`${baseURL}/${Number(userId)}`).then((response) => { return response.data; });
+      console.log(userId);
+      const token = JSON.parse(localStorage.getItem('EncodedToken'));
+      return axios.get(`${baseURL}/history/${Number(userId)}`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }).then((response) => { return response.data; });
     }
       
 }

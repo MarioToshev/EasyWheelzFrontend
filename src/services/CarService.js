@@ -12,7 +12,13 @@ const api = axios.create({
 
 class CarService {
    createCar(data) {
-   return axios.post(baseURL, data).then(response => {return response.data})
+    const token = JSON.parse(localStorage.getItem('EncodedToken'));
+   return axios.post(baseURL, data,
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }).then(response => {return response.data})
     . catch (error => 
        {
 
