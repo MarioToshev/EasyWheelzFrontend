@@ -62,8 +62,9 @@ class CarService {
       .then(response => { return response.data })
   }
   GetCar(carId) {
-    return axios.get(`${baseURL}/${carId}`, carId)
-      .then(response => { return response.data })
+    return axios.get(`${baseURL}/${carId}`)
+      .then(response => {
+         return response.data })
   }
   UploadPhoto(id, data) {
     const token = JSON.parse(localStorage.getItem('EncodedToken'));

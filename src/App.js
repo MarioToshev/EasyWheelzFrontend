@@ -68,7 +68,9 @@ function App({children}) {
           <Route path='/stat' element={<Statistics/>}/>
           <Route path="/history" element = {<UserReservationHistoryPage />}/>
           <Route path="/users/update" element = {<UpdateForm />}/>
+          <Route path="/s" element = {<NotificationComponent />}/>
         </Routes>
+        <NotificationComponent />
 
 
 
@@ -76,8 +78,8 @@ function App({children}) {
 
       <LocalizationProvider dateAdapter={AdapterDayjs}>
       {children}
+
     </LocalizationProvider>
-    <NotificationComponent />
     <ToastContainer/>
 
     </>

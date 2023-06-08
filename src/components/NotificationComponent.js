@@ -2,12 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Client } from '@stomp/stompjs';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import CarService from '../services/CarService';
 
 const NotificationComponent = (props) => {
+
   const [stompClient, setStompClient] = useState();
   const [message, setMessage] = useState('');
   const [messagesReceived, setMessagesReceived] = useState([]);
-  
+  const [car, setCar] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!stompClient) {
@@ -18,6 +23,13 @@ const NotificationComponent = (props) => {
     }
   }, []);
 
+  const redirectToRentCar = (car) => {
+    navigate(
+      '/rentCar',
+      { state: { car: car } }
+    );
+  }
+  
   const setupStompClient = () => {
     const stompClient = new Client({
       brokerURL: 'ws://localhost:8080/ws',
@@ -45,22 +57,17 @@ const NotificationComponent = (props) => {
       const message = JSON.parse(data.body);
       if (!messagesReceived.includes(message)) {
         setMessagesReceived((prevMessages) => [...prevMessages, message]);
-        toast(message);
+        var payLoad = JSON.parse(message);
+        
+        toast(<Button onClick={() =>{
+           CarService.GetCar(payLoad.id).then((response) => { redirectToRentCar(response)});
+        }
+        }>{payLoad.message}</Button>);
       }
     };
 
-  return (<></>
-    // <div>
-    //   <h1>Notifications</h1>
-    //   <input
-    //     type="text"
-    //     value={message}
-    //     onChange={(e) => setMessage(e.target.value)}
-    //     placeholder="Type a message..."
-    //   />
-    //   <button onClick={sendMessage}>Send Message</button>
-    // </div>
-  );
+  return <></>;
+
 };
 
 export default NotificationComponent;

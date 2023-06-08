@@ -77,11 +77,23 @@ const CarForm = () => {
       color: color,
     };
 
+      
       CarService.createCar(data)
-      .then (() => {
+      .then ((response) => {
+
         console.log(stompClient);
         setupStompClient();
-       sendMessage(`${data.color} ${data.brand} ${data.model} was just added`);
+
+       
+
+        
+        var payload = {
+          id : response.id,
+          message: `${data.color} ${data.brand} ${data.model} was just added`
+        }
+      console.log(payload);
+      
+       sendMessage(JSON.stringify(payload));
        })
   };
 

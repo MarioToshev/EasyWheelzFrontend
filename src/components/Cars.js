@@ -16,7 +16,6 @@ function Cars() {
   const [brands, setBrands] = useState([]);
 
 
-
     
   const [cars, setCars] = useState([]);
 
